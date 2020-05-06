@@ -18,23 +18,33 @@ let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_ho
 
 
 // color of mag
-function chooseColor(mag) {
-  switch (true) {
+function getColor(mag) {
+  switch (mag) {
     case mag > 5:
-      return "##884EA0";
-      case mag > 4:
-        return "##73C6B6";
-        case mag > 3:
-          return "##F4D03F";
-          case mag > 2:
-            return "##E67E22";
-            case mag > 1:
-              return "##58D68D";
-              default:
-                return "##73C6B6";
-        
-  }
+     return "##884EA0";
+    case mag > 4:
+      return "##73C6B6";
+   case mag > 3:
+     return "##F4D03F";
+    case mag > 2:
+     return "##E67E22";
+      case mag > 1:
+    return "##58D68D";
+    default:
+      return "##73C6B6";
 }
+}
+
+
+  //     return mag == 5 ? "##884EA0":
+  //      mag > 4 ? "##73C6B6":
+  //      mag > 3 ? "##F4D03F":
+  //      mag > 2 ? "##E67E22":
+  //      mag > 1 ? "##58D68D":
+  //      "##73C6B6";
+        
+  // }
+
 // Grabbing our GeoJSON data..
 d3.json(queryUrl, function(data) {
   // Creating a geoJSON layer with the retrieved data
@@ -42,7 +52,7 @@ d3.json(queryUrl, function(data) {
     style: function(feature) {
       return {
         color: "blue",
-        fillColor: chooseColor(feature.properties.mag),
+        fillColor: getColor(feature.properties.mag),
         fillOpacity: 0.5,
         weight: 1.5
       };
