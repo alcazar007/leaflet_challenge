@@ -19,10 +19,19 @@ let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_ho
 
 // color of mag
 function chooseColor(mag) {
-  switch (mag) {
+  switch (true) {
     case mag > 5:
-      return "yellow";
+      return "##884EA0";
       case mag > 4:
+        return "##73C6B6";
+        case mag > 3:
+          return "##F4D03F";
+          case mag > 2:
+            return "##E67E22";
+            case mag > 1:
+              return "##58D68D";
+              default:
+                return "##73C6B6";
         
   }
 }
@@ -32,15 +41,15 @@ d3.json(queryUrl, function(data) {
   L.geoJson(data, {
     style: function(feature) {
       return {
-        color: "white",
-        fillColor: "blue",
+        color: "blue",
+        fillColor: chooseColor(feature.properties.mag),
         fillOpacity: 0.5,
         weight: 1.5
       };
 
       
       // Giving each feature a pop-up with information pertinent to it
-    layer.bindPopup("<h1>" + feature.properties.mag + "</h1> <hr> <h2>" + feature.properties.place + "</h2>");
+    //layer.bindPopup("<h1>" + feature.properties.mag + "</h1> <hr> <h2>" + feature.properties.place + "</h2>");
 
     }
   }).addTo(map);
